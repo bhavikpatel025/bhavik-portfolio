@@ -4,7 +4,7 @@
 
     <ol class="timeline">
       @for (item of experience; track item.company; let i = $index) {
-        <li class="timeline__item" [appReveal]="i * 100">
+        <li class="timeline__item" [appReveal]="i * 100" [appTilt]="2">
           <div class="timeline__marker">
             <span class="timeline__dot" [class.is-current]="item.isCurrent"></span>
           </div>

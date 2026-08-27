@@ -7,7 +7,7 @@
 
       <div class="hero__ctas">
         <a class="btn btn--primary" href="#projects">View My Work</a>
-        <a class="btn btn--ghost" [href]="resumePath" download>Download Resume</a>
+        <a class="btn btn--ghost" href="#contact">Contact Me</a>
       </div>
 
       <ul class="hero__socials" aria-label="Social links">
@@ -27,27 +27,38 @@
     </div>
 
     <div class="hero__visual" appReveal="120" aria-hidden="true">
-      <svg viewBox="0 0 380 380" class="arch-diagram">
-        <defs>
-          <linearGradient id="archGlow" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="var(--color-accent)" />
-            <stop offset="100%" stop-color="var(--color-accent-2)" />
-          </linearGradient>
-        </defs>
+      <div class="code-window">
+        <div class="code-window__header">
+          <div class="code-window__dots">
+            <span class="dot dot--red"></span>
+            <span class="dot dot--yellow"></span>
+            <span class="dot dot--green"></span>
+          </div>
+          <div class="code-window__title">CreateOrderCommandHandler.cs</div>
+        </div>
+        <div class="code-window__body">
+          <pre><code>
+<span class="keyword">public class</span> <span class="type">CreateOrderCommandHandler</span> : <span class="type">IRequestHandler</span>&lt;<span class="type">CreateOrderCommand</span>, <span class="type">Guid</span>&gt;
+{{ '{' }}
+    <span class="keyword">private readonly</span> <span class="type">IApplicationDbContext</span> _context;
 
-        <rect x="30" y="30" width="320" height="320" rx="24" class="arch-layer arch-layer--outer" />
-        <text x="52" y="60" class="arch-label">API</text>
+    <span class="keyword">public async</span> <span class="type">Task</span>&lt;<span class="type">Guid</span>&gt; <span class="method">Handle</span>(<span class="type">CreateOrderCommand</span> request, <span class="type">CancellationToken</span> ct)
+    {{ '{' }}
+        <span class="keyword">var</span> order = <span class="type">Order</span>.<span class="method">Create</span>(request.CustomerId, request.Items);
+        
+        _context.Orders.<span class="method">Add</span>(order);
+        <span class="keyword">await</span> _context.<span class="method">SaveChangesAsync</span>(ct);
 
-        <rect x="70" y="70" width="240" height="240" rx="20" class="arch-layer arch-layer--mid-2" />
-        <text x="90" y="98" class="arch-label">Infrastructure</text>
-
-        <rect x="110" y="110" width="160" height="160" rx="16" class="arch-layer arch-layer--mid-1" />
-        <text x="128" y="136" class="arch-label">Application</text>
-
-        <rect x="150" y="150" width="80" height="80" rx="14" class="arch-layer arch-layer--core" />
-        <circle cx="190" cy="190" r="7" class="arch-pulse" />
-        <text x="190" y="215" class="arch-label arch-label--core" text-anchor="middle">Domain</text>
-      </svg>
+        <span class="keyword">return</span> order.Id;
+    {{ '}' }}
+{{ '}' }}
+          </code></pre>
+          <div class="code-window__footer">
+            <span>C# · ASP.NET Core</span>
+            <span>14 lines</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
