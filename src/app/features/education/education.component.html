@@ -1,0 +1,41 @@
+<section class="education" id="education" aria-labelledby="education-heading">
+  <div class="container education__inner">
+    <div>
+      <app-section-heading eyebrow="Education" title="Academic background" />
+
+      <ul class="education__list">
+        @for (item of education; track item.institution; let i = $index) {
+          <li class="education__item" [appReveal]="i * 70">
+            <div class="education__item-header">
+              <h3 class="h3 education__degree">{{ item.degree }}</h3>
+              <span class="education__dates">{{ item.startDate }} – {{ item.endDate }}</span>
+            </div>
+            <p class="education__institution">
+              {{ item.institution }}
+              @if (item.detail) {
+                <span class="education__detail">· {{ item.detail }}</span>
+              }
+            </p>
+          </li>
+        }
+      </ul>
+    </div>
+
+    @if (certifications.length) {
+      <div>
+        <h3 class="h3 education__cert-title">Certifications</h3>
+        <ul class="education__certs">
+          @for (cert of certifications; track cert.name) {
+            <li class="education__cert" appReveal>
+              <span class="education__cert-icon" aria-hidden="true">✓</span>
+              <div>
+                <p class="education__cert-name">{{ cert.name }}</p>
+                <p class="education__cert-issuer">{{ cert.issuer }}</p>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+</section>

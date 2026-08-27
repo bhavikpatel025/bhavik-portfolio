@@ -1,0 +1,108 @@
+<section class="contact" id="contact" aria-labelledby="contact-heading">
+  <div class="container contact__inner">
+    <div appReveal>
+      <app-section-heading
+        eyebrow="Contact"
+        title="Let's build something"
+        subtitle="Open to full-stack roles and interesting freelance work. The fastest way to reach me is email."
+      />
+
+      <ul class="contact__details">
+        <li>
+          <app-social-icon icon="email" />
+          <a [href]="'mailto:' + profile.email">{{ profile.email }}</a>
+        </li>
+        <li>
+          <app-social-icon icon="phone" />
+          <a [href]="'tel:' + profile.phone">{{ profile.phone }}</a>
+        </li>
+      </ul>
+
+      <ul class="contact__socials" aria-label="Social links">
+        @for (social of socials; track social.url) {
+          <li>
+            <a
+              [href]="social.url"
+              [target]="social.icon === 'email' ? null : '_blank'"
+              [rel]="social.icon === 'email' ? null : 'noopener noreferrer'"
+            >
+              <app-social-icon [icon]="social.icon" />
+              {{ social.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <form class="contact-form" #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" appReveal="100" novalidate>
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          ngModel
+          required
+          minlength="2"
+          #nameField="ngModel"
+          [class.is-invalid]="nameField.invalid && nameField.touched"
+        />
+        @if (nameField.invalid && nameField.touched) {
+          <span class="form-field__error">Please enter your name.</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          ngModel
+          required
+          email
+          #emailField="ngModel"
+          [class.is-invalid]="emailField.invalid && emailField.touched"
+        />
+        @if (emailField.invalid && emailField.touched) {
+          <span class="form-field__error">Please enter a valid email.</span>
+        }
+      </div>
+
+      <div class="form-field">
+        <label for="message">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          ngModel
+          required
+          minlength="10"
+          #messageField="ngModel"
+          [class.is-invalid]="messageField.invalid && messageField.touched"
+        ></textarea>
+        @if (messageField.invalid && messageField.touched) {
+          <span class="form-field__error">Message should be at least 10 characters.</span>
+        }
+      </div>
+
+      <button type="submit" class="btn btn--primary btn--block" [disabled]="state() === 'sending'">
+        @switch (state()) {
+          @case ('sending') { Sending… }
+          @default { Send Message }
+        }
+      </button>
+
+      @if (state() === 'success') {
+        <p class="form-status form-status--success" role="status">
+          Thanks — your message is in! I'll get back to you soon.
+        </p>
+      }
+      @if (state() === 'error') {
+        <p class="form-status form-status--error" role="alert">
+          Something went wrong sending that. Try again, or email me directly.
+        </p>
+      }
+    </form>
+  </div>
+</section>

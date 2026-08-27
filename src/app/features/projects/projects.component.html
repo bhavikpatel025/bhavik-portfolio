@@ -1,0 +1,77 @@
+<section class="projects" id="projects" aria-labelledby="projects-heading">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Projects"
+      title="Things I've built end to end"
+      subtitle="Each one is a full case study — the problem, my role, what I actually shipped, and the stack behind it."
+    />
+
+    <div class="project-list">
+      @for (project of projects; track project.slug; let i = $index) {
+        <article class="project-card" [class.is-reversed]="i % 2 === 1" [appReveal]="i * 60">
+          <div class="project-card__visual">
+            <div class="browser-chrome">
+              <div class="browser-chrome__bar">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="browser-chrome__body">
+                <p class="browser-chrome__project-name">{{ project.name }}</p>
+                <ul class="browser-chrome__tags">
+                  @for (tech of project.technologies.slice(0, 4); track tech) {
+                    <li class="tag">{{ tech }}</li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card__content">
+            @if (project.featured) {
+              <span class="project-card__featured-badge">Featured</span>
+            }
+            <h3 class="h3 project-card__name">{{ project.name }}</h3>
+            <p class="project-card__tagline">{{ project.tagline }}</p>
+
+            <p class="project-card__description">{{ project.description }}</p>
+
+            <div class="project-card__meta">
+              <div>
+                <p class="project-card__meta-label">Problem</p>
+                <p class="project-card__meta-value">{{ project.problem }}</p>
+              </div>
+              <div>
+                <p class="project-card__meta-label">My role</p>
+                <p class="project-card__meta-value">{{ project.role }}</p>
+              </div>
+            </div>
+
+            <ul class="project-card__highlights">
+              @for (highlight of project.highlights; track highlight) {
+                <li>{{ highlight }}</li>
+              }
+            </ul>
+
+            <ul class="project-card__tags">
+              @for (tech of project.technologies; track tech) {
+                <li class="tag">{{ tech }}</li>
+              }
+            </ul>
+
+            <div class="project-card__links">
+              @if (project.githubUrl) {
+                <a class="btn btn--ghost" [href]="project.githubUrl" target="_blank" rel="noopener noreferrer">
+                  View Code
+                </a>
+              }
+              @if (project.liveUrl) {
+                <a class="btn btn--primary" [href]="project.liveUrl" target="_blank" rel="noopener noreferrer">
+                  Live Demo
+                </a>
+              }
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,190 @@
+@use '../../../styles/mixins' as *;
+
+.hero {
+  position: relative;
+  padding-block: clamp(3rem, 8vw, 5rem) clamp(4rem, 10vw, 7rem);
+  overflow: clip;
+}
+
+.hero__inner {
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+
+  @include bp(lg) {
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 2rem;
+  }
+}
+
+.hero__content {
+  max-width: 720px;
+}
+
+.hero__name {
+  margin-top: 0.85rem;
+  color: var(--color-text-primary);
+  
+  @include bp(sm) {
+    white-space: nowrap;
+  }
+}
+
+.hero__summary {
+  margin-top: 1.25rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  max-width: 54ch;
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2.25rem;
+}
+
+.hero__socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.25rem;
+
+  a {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-text-secondary);
+    transition: border-color var(--duration-fast) var(--ease-standard),
+      color var(--duration-fast) var(--ease-standard),
+      transform var(--duration-fast) var(--ease-standard);
+    @include focus-ring;
+
+    &:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* ---- Signature visual: layered architecture diagram ---- */
+.hero__visual {
+  display: flex;
+  justify-content: center;
+}
+
+.arch-diagram {
+  width: min(100%, 380px);
+  height: auto;
+}
+
+.arch-layer {
+  fill: var(--color-surface);
+  stroke: var(--color-border-strong);
+  stroke-width: 1.2;
+  transform-origin: center;
+}
+
+.arch-layer--outer {
+  animation: arch-breathe 7s ease-in-out infinite;
+}
+
+.arch-layer--mid-2 {
+  stroke: color-mix(in srgb, var(--color-accent) 35%, var(--color-border-strong));
+  animation: arch-breathe 7s ease-in-out infinite 0.4s;
+}
+
+.arch-layer--mid-1 {
+  stroke: color-mix(in srgb, var(--color-accent) 55%, var(--color-border-strong));
+  animation: arch-breathe 7s ease-in-out infinite 0.8s;
+}
+
+.arch-layer--core {
+  fill: var(--color-accent-soft);
+  stroke: url(#archGlow);
+  stroke-width: 1.6;
+  animation: arch-breathe 7s ease-in-out infinite 1.2s;
+}
+
+.arch-pulse {
+  fill: var(--color-accent-2);
+  animation: arch-pulse 2.4s ease-in-out infinite;
+}
+
+.arch-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  fill: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.arch-label--core {
+  fill: var(--color-text-secondary);
+}
+
+@keyframes arch-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+
+@keyframes arch-pulse {
+  0%, 100% { opacity: 0.55; r: 6px; }
+  50% { opacity: 1; r: 8px; }
+}
+
+@include reduced-motion {
+  .arch-layer,
+  .arch-pulse {
+    animation: none !important;
+  }
+}
+
+.hero__scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  display: none;
+
+  @include bp(md) {
+    display: block;
+  }
+
+  span {
+    display: block;
+    width: 22px;
+    height: 36px;
+    border: 1.5px solid var(--color-border-strong);
+    border-radius: 12px;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      animation: scroll-cue 1.8s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes scroll-cue {
+  0% { opacity: 1; top: 6px; }
+  70% { opacity: 0; top: 18px; }
+  100% { opacity: 0; top: 18px; }
+}
+
+@include reduced-motion {
+  .hero__scroll-cue span::before {
+    animation: none;
+  }
+}

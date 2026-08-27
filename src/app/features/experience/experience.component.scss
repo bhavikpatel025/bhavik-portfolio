@@ -1,0 +1,150 @@
+@use '../../../styles/mixins' as *;
+
+.experience {
+  @include section-spacing;
+  border-top: 1px solid var(--color-border);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline__item {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 1.25rem;
+  padding-bottom: 3rem;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 28px;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-border);
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.timeline__marker {
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.timeline__dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-strong);
+  background: var(--color-bg);
+  position: relative;
+  z-index: 1;
+
+  &.is-current {
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+  }
+}
+
+.timeline__content {
+  @include card-surface;
+  padding: 1.75rem;
+
+  @include bp(md) {
+    padding: 2rem 2.25rem;
+  }
+}
+
+.timeline__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+
+  @include bp(sm) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
+.timeline__role {
+  color: var(--color-text-primary);
+}
+
+.timeline__company {
+  margin-top: 0.25rem;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.timeline__dates {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.timeline__current-badge {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: var(--color-accent-2-soft);
+  color: var(--color-accent-2);
+}
+
+.timeline__points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+
+  li {
+    position: relative;
+    padding-left: 1.1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    font-size: 0.96rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--color-accent-2);
+    }
+  }
+}
+
+.timeline__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}

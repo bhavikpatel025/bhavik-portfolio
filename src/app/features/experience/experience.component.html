@@ -1,0 +1,44 @@
+<section class="experience" id="experience" aria-labelledby="experience-heading">
+  <div class="container">
+    <app-section-heading eyebrow="Experience" title="Where I've worked" />
+
+    <ol class="timeline">
+      @for (item of experience; track item.company; let i = $index) {
+        <li class="timeline__item" [appReveal]="i * 100">
+          <div class="timeline__marker">
+            <span class="timeline__dot" [class.is-current]="item.isCurrent"></span>
+          </div>
+
+          <div class="timeline__content">
+            <div class="timeline__header">
+              <div>
+                <h3 class="h3 timeline__role">{{ item.role }}</h3>
+                <p class="timeline__company">
+                  {{ item.company }}@if (item.location) {, {{ item.location }}}
+                </p>
+              </div>
+              <span class="timeline__dates">
+                {{ item.startDate }} – {{ item.endDate }}
+                @if (item.isCurrent) {
+                  <span class="timeline__current-badge">Current</span>
+                }
+              </span>
+            </div>
+
+            <ul class="timeline__points">
+              @for (point of item.points; track point) {
+                <li>{{ point }}</li>
+              }
+            </ul>
+
+            <ul class="timeline__tags">
+              @for (tech of item.technologies; track tech) {
+                <li class="tag">{{ tech }}</li>
+              }
+            </ul>
+          </div>
+        </li>
+      }
+    </ol>
+  </div>
+</section>

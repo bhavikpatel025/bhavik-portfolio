@@ -1,0 +1,111 @@
+@use '../../../styles/mixins' as *;
+
+.education {
+  @include section-spacing;
+  border-top: 1px solid var(--color-border);
+}
+
+.education__inner {
+  display: grid;
+  gap: 3rem;
+
+  @include bp(lg) {
+    grid-template-columns: 1.4fr 1fr;
+    gap: 4rem;
+  }
+}
+
+.education__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.education__item {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.education__item-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  @include bp(sm) {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+}
+
+.education__degree {
+  color: var(--color-text-primary);
+}
+
+.education__dates {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.education__institution {
+  margin-top: 0.4rem;
+  color: var(--color-text-secondary);
+  font-size: 0.96rem;
+}
+
+.education__detail {
+  color: var(--color-accent-2);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.education__cert-title {
+  color: var(--color-text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.education__certs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.education__cert {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  @include card-surface;
+  padding: 1.1rem 1.25rem;
+}
+
+.education__cert-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-accent-2-soft);
+  color: var(--color-accent-2);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.education__cert-name {
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.education__cert-issuer {
+  margin-top: 0.15rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}

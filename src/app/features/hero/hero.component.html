@@ -1,0 +1,57 @@
+<section class="hero" id="top">
+  <div class="container hero__inner">
+    <div class="hero__content" appReveal>
+      <p class="eyebrow">{{ profile.title }} · {{ profile.location }}</p>
+      <h1 class="h1 hero__name">Hi, I'm {{ profile.name }}.</h1>
+      <p class="hero__summary">{{ profile.summary }}</p>
+
+      <div class="hero__ctas">
+        <a class="btn btn--primary" href="#projects">View My Work</a>
+        <a class="btn btn--ghost" [href]="resumePath" download>Download Resume</a>
+      </div>
+
+      <ul class="hero__socials" aria-label="Social links">
+        @for (social of socials; track social.url) {
+          <li>
+            <a
+              [href]="social.url"
+              [target]="social.icon === 'email' ? null : '_blank'"
+              [rel]="social.icon === 'email' ? null : 'noopener noreferrer'"
+              [attr.aria-label]="social.label"
+            >
+              <app-social-icon [icon]="social.icon" />
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="hero__visual" appReveal="120" aria-hidden="true">
+      <svg viewBox="0 0 380 380" class="arch-diagram">
+        <defs>
+          <linearGradient id="archGlow" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--color-accent)" />
+            <stop offset="100%" stop-color="var(--color-accent-2)" />
+          </linearGradient>
+        </defs>
+
+        <rect x="30" y="30" width="320" height="320" rx="24" class="arch-layer arch-layer--outer" />
+        <text x="52" y="60" class="arch-label">API</text>
+
+        <rect x="70" y="70" width="240" height="240" rx="20" class="arch-layer arch-layer--mid-2" />
+        <text x="90" y="98" class="arch-label">Infrastructure</text>
+
+        <rect x="110" y="110" width="160" height="160" rx="16" class="arch-layer arch-layer--mid-1" />
+        <text x="128" y="136" class="arch-label">Application</text>
+
+        <rect x="150" y="150" width="80" height="80" rx="14" class="arch-layer arch-layer--core" />
+        <circle cx="190" cy="190" r="7" class="arch-pulse" />
+        <text x="190" y="215" class="arch-label arch-label--core" text-anchor="middle">Domain</text>
+      </svg>
+    </div>
+  </div>
+
+  <a href="#about" class="hero__scroll-cue" aria-label="Scroll to about section">
+    <span></span>
+  </a>
+</section>

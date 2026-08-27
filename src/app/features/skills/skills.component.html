@@ -1,0 +1,22 @@
+<section class="skills" id="skills" aria-labelledby="skills-heading">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Skills"
+      title="Tools I reach for"
+      subtitle="Grouped by where they sit in the stack — not a ranked list, just what I actually build with."
+    />
+
+    <div class="skills__grid">
+      @for (group of skillGroups; track group.category; let i = $index) {
+        <div class="skills__group" [appReveal]="i * 70">
+          <h3 class="h3 skills__group-title">{{ group.category }}</h3>
+          <ul class="skills__tags">
+            @for (skill of group.skills; track skill) {
+              <li class="tag">{{ skill }}</li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+</section>

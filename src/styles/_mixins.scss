@@ -1,0 +1,61 @@
+// ==========================================================================
+// Mixins
+// ==========================================================================
+
+@mixin container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+// Breakpoints: mobile-first. Use with min-width.
+@mixin bp($size) {
+  @if $size == xs {
+    @media (min-width: 375px) { @content; }
+  } @else if $size == sm {
+    @media (min-width: 576px) { @content; }
+  } @else if $size == md {
+    @media (min-width: 768px) { @content; }
+  } @else if $size == lg {
+    @media (min-width: 1024px) { @content; }
+  } @else if $size == xl {
+    @media (min-width: 1280px) { @content; }
+  } @else if $size == xxl {
+    @media (min-width: 1536px) { @content; }
+  }
+}
+
+@mixin section-spacing {
+  padding-block: clamp(3.5rem, 8vw, 7rem);
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+@mixin card-surface {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+}
+
+@mixin mono-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}

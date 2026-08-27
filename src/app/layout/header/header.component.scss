@@ -1,0 +1,238 @@
+@use '../../../styles/mixins' as *;
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard),
+    backdrop-filter var(--duration-base) var(--ease-standard);
+
+  &.is-scrolled {
+    background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom-color: var(--color-border);
+  }
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  @include focus-ring;
+}
+
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+  color: #04101f;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.brand__name {
+  font-size: 1rem;
+
+  @media (max-width: 420px) {
+    display: none;
+  }
+}
+
+.nav-desktop {
+  display: none;
+
+  @include bp(lg) {
+    display: block;
+  }
+
+  ul {
+    display: flex;
+    gap: 2rem;
+  }
+
+  a {
+    position: relative;
+    font-size: 0.92rem;
+    color: var(--color-text-secondary);
+    transition: color var(--duration-fast) var(--ease-standard);
+    padding-bottom: 4px;
+    @include focus-ring;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1.5px;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform var(--duration-base) var(--ease-standard);
+    }
+
+    &:hover {
+      color: var(--color-text-primary);
+
+      &::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  transition: border-color var(--duration-fast) var(--ease-standard);
+  @include focus-ring;
+
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+}
+
+.header-actions__resume {
+  display: none;
+
+  @include bp(md) {
+    display: inline-flex;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.88rem;
+  }
+}
+
+.menu-toggle {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  background: transparent;
+  border: none;
+  @include focus-ring;
+
+  @include bp(lg) {
+    display: none;
+  }
+
+  span,
+  span::before,
+  span::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: var(--color-text-primary);
+    transition: transform var(--duration-base) var(--ease-standard),
+      opacity var(--duration-base) var(--ease-standard);
+  }
+
+  span {
+    display: block;
+    position: relative;
+
+    &::before {
+      top: -6px;
+    }
+
+    &::after {
+      top: 6px;
+    }
+
+    &.is-open {
+      background: transparent;
+
+      &::before {
+        top: 0;
+        transform: rotate(45deg);
+      }
+
+      &::after {
+        top: 0;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 72px;
+  right: 0;
+  bottom: 0;
+  width: min(320px, 84vw);
+  background: var(--color-bg-elevated);
+  border-left: 1px solid var(--color-border);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transform: translateX(100%);
+  transition: transform var(--duration-base) var(--ease-standard);
+  z-index: 110;
+
+  &.is-open {
+    transform: translateX(0);
+  }
+
+  @include bp(lg) {
+    display: none;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  a {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    @include focus-ring;
+  }
+}
+
+.mobile-nav__scrim {
+  position: fixed;
+  inset: 72px 0 0 0;
+  background: rgba(4, 8, 14, 0.5);
+  border: none;
+  z-index: 105;
+
+  @include bp(lg) {
+    display: none;
+  }
+}
