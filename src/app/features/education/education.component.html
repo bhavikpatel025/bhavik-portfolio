@@ -8,7 +8,13 @@
           <li class="education__item" [appReveal]="i * 70">
             <div class="education__item-header">
               <h3 class="h3 education__degree">{{ item.degree }}</h3>
-              <span class="education__dates">{{ item.startDate }} – {{ item.endDate }}</span>
+              <span class="education__dates">
+                @if (item.startDate === item.endDate) {
+                  {{ item.endDate }}
+                } @else {
+                  {{ item.startDate }} – {{ item.endDate }}
+                }
+              </span>
             </div>
             <p class="education__institution">
               {{ item.institution }}

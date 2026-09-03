@@ -215,8 +215,8 @@ export const EDUCATION: EducationItem[] = [
   {
     degree: 'Higher Secondary Certificate (HSC)',
     institution: 'Matrushree J R Vidhyalay, Palanpur',
-    startDate: '2020',
-    endDate: '2020',
+    startDate: 'Jun 2018',
+    endDate: 'May 2020',
     detail: '71.85%',
   },
 ];
